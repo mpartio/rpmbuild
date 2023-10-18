@@ -8,8 +8,11 @@ inputs:
     required: true
     default: '*.spec'                     #Any spec file in top 
   additional_repos:
-    description: 'A list of additional repositories to enable'
+    description: 'A list of additional repositories to install'
     required: false
+  enable_repos:
+    description: 'A list of additional repositories to enable'
+    requires: false
 
 outputs:
   source_rpm_path:
