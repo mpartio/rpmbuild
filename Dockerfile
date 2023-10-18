@@ -1,5 +1,5 @@
-# Using CentOS 7 as base image to support rpmbuild (packages will be Dist el7)
-FROM centos:7
+# Using RockyLinux 8 as base image to support rpmbuild (packages will be Dist el8)
+FROM rockylinux/rockylinux:8
 
 # Copying all contents of rpmbuild repo inside container
 COPY . .
