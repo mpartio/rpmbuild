@@ -13,7 +13,12 @@ inputs:
   enable_repos:
     description: 'A list of additional repositories to enable'
     requires: false
-
+  enable_modules:
+    description: 'A list of dnf modules to enable'
+    required: false
+  disable_modules:
+    description: 'A list of dnf modules to disable'
+    requires: false
 outputs:
   source_rpm_path:
     description: 'path to Source RPM file'
