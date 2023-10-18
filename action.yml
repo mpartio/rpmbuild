@@ -33,7 +33,7 @@ outputs:
 
 runs:
   using: 'docker'
-  image: 'docker://quay.io/fmi/gha-rpmbuild:latest'
+  image: 'Dockerfile'
 
 branding:
   icon: 'package'
