@@ -57,12 +57,42 @@ async function run() {
     process.env.GIT_DIR = oldGitDir;
 
     // Installs additional repositories
-    const additionalRepos = core.getInput('additional_repos'); // user input, eg: '["centos-release-scl"]'
+    const additionalRepos = core.getInput('additional_repos'); // user input, eg: '["epel-release"]'
 	if (additionalRepos) {
 		const arr = JSON.parse(additionalRepos);
 		for (let i = 0; i < arr.length; i++) {
 			console.log(`Installing repo': ${arr[i]}`);
     		await exec.exec(`yum install -y ${arr[i]}`);
+		};
+	}
+
+    // Enabled additional repositories
+    const enableRepos = core.getInput('enable_repos'); // user input, eg: '["powertools"]'
+	if (enableRepos) {
+		const arr = JSON.parse(enableRepos);
+		for (let i = 0; i < arr.length; i++) {
+			console.log(`Enabling repo': ${arr[i]}`);
+    		await exec.exec(`dnf config-manager --set-enabled ${arr[i]}`);
+		};
+	}
+
+    // Enable modules
+    const enableModules = core.getInput('enable_modules'); // user input, eg: '["postgresql"]'
+	if (enableModules) {
+		const arr = JSON.parse(enableModules);
+		for (let i = 0; i < arr.length; i++) {
+			console.log(`Enabling module': ${arr[i]}`);
+    		await exec.exec(`dnf -y module enable ${arr[i]}`);
+		};
+	}
+
+    // Enable modules
+    const disableModules = core.getInput('disable_modules'); // user input, eg: '["postgresql"]'
+	if (disableModules) {
+		const arr = JSON.parse(disableModules);
+		for (let i = 0; i < arr.length; i++) {
+			console.log(`Disabling module': ${arr[i]}`);
+    		await exec.exec(`dnf -y module disable ${arr[i]}`);
 		};
 	}
 
