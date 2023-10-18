@@ -53,7 +53,7 @@ async function run() {
     const oldGitDir = process.env.GIT_DIR;
     process.env.GIT_DIR = '/github/workspace/.git';
     await exec.exec(`git archive --output=/github/home/rpmbuild/SOURCES/${name}-${version}.tar.gz --prefix=${name}-${version}/ HEAD`);
-    await exec.exec(`ln -s /github/home/rpmbuild/SOURCES/${name}-${version}.tar.gz /github/home/rpmbuild/SOURCES/${name}.tar.gz`);
+    await exec.exec(`ln -sf /github/home/rpmbuild/SOURCES/${name}-${version}.tar.gz /github/home/rpmbuild/SOURCES/${name}.tar.gz`);
     process.env.GIT_DIR = oldGitDir;
 
     // Installs additional repositories
