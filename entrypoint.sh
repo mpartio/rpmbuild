@@ -9,7 +9,7 @@ DISABLE_MODULES="$5"
 dnf -y install rpm-build rpmdevtools git yum-utils dnf-plugins-core
 
 if [ "$ADDITIONAL_REPOS" != "none" ]; then
-  for i in "$ADDITIONAL_REPOS"; do
+  for i in $(echo $ADDITIONAL_REPOS | tr ',' ' '); do
     dnf -y install $i
   done
 fi
