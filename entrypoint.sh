@@ -1,7 +1,14 @@
 #!/bin/bash
-
+set -x
 SPEC_FILE="$1"
+dnf -y install rpm-build rpmdevtools git yum-utils dnf-plugins-core
 rpmdev-setuptree
+
+name=$(rpmspec --parse $SPEC_FILE --query --queryformat "%{Name}" --srpm)
+version=$(rpmspec --parse $SPEC_FILE --query --queryformat "%{Version}" --srpm)
+
+git archive --output=/github/home/rpmbuild/SOURCES/${name}-${version}.tar.gz --prefix=${name}/ HEAD
+
 ls -lah /github/workspace/ /github/workspace/dist/ /github/home/rpmbuild/SOURCES/
 cp /github/workspace/dist/*.tar.gz /github/home/rpmbuild/SOURCES/
 ls -lah /github/workspace/dist/ /github/home/rpmbuild/SOURCES/
