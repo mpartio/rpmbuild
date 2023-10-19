@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -xe
 SPEC_FILE="$1"
 ADDITIONAL_REPOS="$2"
 ENABLE_REPOS="$3"
