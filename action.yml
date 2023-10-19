@@ -10,15 +10,19 @@ inputs:
   additional_repos:
     description: 'A list of additional repositories to install'
     required: false
+    default: none
   enable_repos:
     description: 'A list of additional repositories to enable'
     requires: false
+    default: none
   enable_modules:
     description: 'A list of dnf modules to enable'
     required: false
+    default: none
   disable_modules:
     description: 'A list of dnf modules to disable'
     requires: false
+    default: none
 outputs:
   source_rpm_path:
     description: 'path to Source RPM file'
@@ -40,6 +44,12 @@ runs:
       shell: bash
     - run: sh ${GITHUB_ACTION_PATH}/entrypoint.sh
       shell: bash
+      args:
+        - ${{ inputs.spec_file }}
+        - ${{ inputs.additional_repos }}
+        - ${{ inputs.enabled_repos }}
+        - ${{ inputs.enable_modules }}
+        - ${{ inputs.disable_modules }}
 
 branding:
   icon: 'package'

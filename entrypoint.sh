@@ -1,7 +1,37 @@
 #!/bin/bash
 set -x
 SPEC_FILE="$1"
+ADDITIONAL_REPOS="$2"
+ENABLE_REPOS="$3"
+ENABLE_MODULES="$4"
+DISABLE_MODULES="$5"
+
 dnf -y install rpm-build rpmdevtools git yum-utils dnf-plugins-core
+
+if [ "$ADDITIONAL_REPOS" != "none" ]; then
+  for i in "$ADDITIONAL_REPOS"; do
+    dnf -y install $i
+  done
+fi
+
+if [ "$ENABLE_REPOS" != "none" ]; then
+  for i in "$ENABLE_REPOS"; do
+    dnf config-manager --set-enabled $i
+  done
+fi
+
+if [ "$ENABLE_MODULES" != "none" ]; then
+  for i in "$ENABLE_MODULES"; do
+    dnf -y module enable $i
+  done
+fi
+
+if [ "$DISABLE_MODULES" != "none" ]; then
+  for i in "$DISABLE_MODULES"; do
+    dnf -y module disable $i
+  done
+fi
+
 rpmdev-setuptree
 
 name=$(rpmspec --parse $SPEC_FILE --query --queryformat "%{Name}" --srpm)
