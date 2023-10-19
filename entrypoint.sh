@@ -37,7 +37,7 @@ rpmdev-setuptree
 name=$(rpmspec --parse $SPEC_FILE --query --queryformat "%{Name}" --srpm)
 version=$(rpmspec --parse $SPEC_FILE --query --queryformat "%{Version}" --srpm)
 
-tar cvfz /github/home/rpmbuild/SOURCES/${name}-${version}.tar.gz /github/workspace/
+tar --transform "s,^,$name/," -cvfz /github/home/rpmbuild/SOURCES/${name}-${version}.tar.gz /github/workspace/
 ln -sf /github/home/rpmbuild/SOURCES/${name}-${version}.tar.gz /github/home/rpmbuild/SOURCES/${name}.tar.gz
 
 ls -lah /github/workspace/ /github/home/rpmbuild/SOURCES/
