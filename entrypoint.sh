@@ -15,19 +15,19 @@ if [ "$ADDITIONAL_REPOS" != "none" ]; then
 fi
 
 if [ "$ENABLE_REPOS" != "none" ]; then
-  for i in "$ENABLE_REPOS"; do
+  for i in $(echo $ENABLE_REPOS | tr ',' ' '); do
     dnf config-manager --set-enabled $i
   done
 fi
 
 if [ "$ENABLE_MODULES" != "none" ]; then
-  for i in "$ENABLE_MODULES"; do
+  for i in $(echo $ENABLE_MODULES | tr ',' ' '); do
     dnf -y module enable $i
   done
 fi
 
 if [ "$DISABLE_MODULES" != "none" ]; then
-  for i in "$DISABLE_MODULES"; do
+  for i in $(echo $DISABLE_MODULES | tr ',' ' '); do
     dnf -y module disable $i
   done
 fi
