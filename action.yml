@@ -32,8 +32,12 @@ outputs:
     description: 'Content-type for Upload'
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'composite'
+  steps:
+    - run: echo Building spec ${{ inputs.spec_file }}
+      shell: bash
+    - run: sh entrypoint.sh
+      shell: bash
 
 branding:
   icon: 'package'
