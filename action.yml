@@ -36,7 +36,11 @@ runs:
   steps:
     - run: echo Building spec ${{ inputs.spec_file }}
       shell: bash
-    - run: sh entrypoint.sh
+    - run: ls -l /
+      shell: bash
+    - run: ls -l ${{ github.action_path }}
+      shell: bash
+    - run: sh /entrypoint.sh
       shell: bash
 
 branding:
