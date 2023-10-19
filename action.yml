@@ -44,7 +44,7 @@ runs:
       shell: bash
     - run: export
       shell: bash
-    - run: find __w/ -type f
+    - run: ls -l /__w
       shell: bash
     - run: ls ${GITHUB_ACTION_PATH}
       shell: bash
