@@ -6,7 +6,7 @@ ENABLE_REPOS="$3"
 ENABLE_MODULES="$4"
 DISABLE_MODULES="$5"
 
-dnf -y install rpm-build rpmdevtools git yum-utils dnf-plugins-core
+dnf -y install rpm-build rpmdevtools git yum-utils dnf-plugins-core findutils
 
 if [ "$ADDITIONAL_REPOS" != "none" ]; then
   for i in $(echo $ADDITIONAL_REPOS | tr ',' ' '); do
@@ -45,15 +45,9 @@ ls -lah /github/workspace/ /github/home/rpmbuild/SOURCES/
 dnf builddep -y $SPEC_FILE
 rpmbuild -ba $SPEC_FILE
 
-set +e
-
-ls -lah /github/home/rpmbuild/BUILD/ 
-
-ls -lah /github/home/rpmbuild/RPMS
-mkdir -p /github/workspace/rpmbuild/SRPMS
-mkdir -p /github/workspace/rpmbuild/RPMS
-cp /github/home/rpmbuild/SRPMS/* /github/workspace/rpmbuild/SRPMS
-cp -R /github/home/rpmbuild/RPMS/. /github/workspace/rpmbuild/RPMS/
+mkdir -p /github/workspace/rpmbuild/SRPMS  /github/workspace/rpmbuild/RPMS
+find /github/home/rpmbuild/SRPMS/ -type f -name "*.src.rpm" -exec cp {} /github/workspace/rpmbuild/SRPMS \;
+find /github/home/rpmbuild/RPMS/ -type f -name "*.rpm" -exec cp {} /github/workspace/rpmbuild/RPMS \;
 ls -la /github/workspace/rpmbuild/SRPMS /github/workspace/rpmbuild/RPMS
 
 echo "source_rpm_dir_path=rpmbuild/SRPMS/" >> $GITHUB_OUTPUT
