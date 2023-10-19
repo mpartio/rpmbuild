@@ -42,14 +42,8 @@ runs:
       shell: bash
     - run: ls ${GITHUB_ACTION_PATH}
       shell: bash
-    - run: sh ${GITHUB_ACTION_PATH}/entrypoint.sh
+    - run: sh ${GITHUB_ACTION_PATH}/entrypoint.sh ${{ inputs.spec_file }}  ${{ inputs.additional_repos }} ${{ inputs.enabled_repos }} ${{ inputs.enable_modules }} ${{ inputs.disable_modules }}
       shell: bash
-      args:
-        - ${{ inputs.spec_file }}
-        - ${{ inputs.additional_repos }}
-        - ${{ inputs.enabled_repos }}
-        - ${{ inputs.enable_modules }}
-        - ${{ inputs.disable_modules }}
 
 branding:
   icon: 'package'
