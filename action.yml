@@ -42,7 +42,9 @@ runs:
       shell: bash
     - run: ls -l /github/action_path
       shell: bash
-    - run: sh /github/action_path/entrypoint.sh
+    - run: export
+      shell: bash
+    - run: sh entrypoint.sh
       shell: bash
 
 branding:
