@@ -44,6 +44,10 @@ runs:
       shell: bash
     - run: export
       shell: bash
+    - run: find __w/ -type f
+      shell: bash
+    - run: ls ${GITHUB_ACTION_PATH}
+      shell: bash
     - run: sh entrypoint.sh
       shell: bash
 
