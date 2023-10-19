@@ -38,7 +38,7 @@ name=$(rpmspec --parse $SPEC_FILE --query --queryformat "%{Name}" --srpm)
 version=$(rpmspec --parse $SPEC_FILE --query --queryformat "%{Version}" --srpm)
 
 old_git=$GIT_DIR
-tar cvfz /github/home/rpmbuild/SOURCES/${name}-${version}.tar.gz /github/workspace/$name 
+tar cvfz /github/home/rpmbuild/SOURCES/${name}-${version}.tar.gz /github/workspace/
 #export GIT_DIR='/github/workspace/.git'
 #git archive --output=/github/home/rpmbuild/SOURCES/${name}-${version}.tar.gz --prefix=${name}/ HEAD
 #export GIT_DIR=$old_git
