@@ -50,5 +50,5 @@ find /github/home/rpmbuild/SRPMS/ -type f -name "*.src.rpm" -exec cp {} /github/
 find /github/home/rpmbuild/RPMS/ -type f -name "*.rpm" -exec cp {} /github/workspace/rpmbuild/RPMS \;
 ls -la /github/workspace/rpmbuild/SRPMS /github/workspace/rpmbuild/RPMS
 
-echo "source_rpm_dir_path=rpmbuild/SRPMS/" >> "$GITHUB_OUTPUT"
+echo "srpm_dir_path=rpmbuild/SRPMS/" >> "$GITHUB_OUTPUT"
 echo "rpm_dir_path=rpmbuild/RPMS/" >> "$GITHUB_OUTPUT"

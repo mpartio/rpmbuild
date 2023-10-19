@@ -24,29 +24,22 @@ inputs:
     requires: false
     default: none
 outputs:
-  source_rpm_path:
-    description: 'path to Source RPM file'
-  source_rpm_dir_path:
-    description: 'path to  SRPMS directory'
-  source_rpm_name:
-    description: 'name of Source RPM file'
+  srpm_dir_path:
+    description: 'path to SRPMS directory'
+    value: ${{ steps.build_rpm.outputs.srpm_dir_path }}
   rpm_dir_path:
     description: 'path to RPMS directory'
-  rpm_content_type:
-    description: 'Content-type for Upload'
+    value: ${{ steps.build_rpm.outputs.rpm_dir_path }}
 
 runs:
   using: 'composite'
   steps:
     - run: echo Building spec ${{ inputs.spec_file }}
       shell: bash
-    - run: ls ${GITHUB_ACTION_PATH}
-      shell: bash
     - run: sh ${GITHUB_ACTION_PATH}/entrypoint.sh ${{ inputs.spec_file }}  ${{ inputs.additional_repos }} ${{ inputs.enable_repos }} ${{ inputs.enable_modules }} ${{ inputs.disable_modules }}
       shell: bash
+      id: build_rpm
 
 branding:
   icon: 'package'
   color: 'red'
-
-  
