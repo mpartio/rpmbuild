@@ -34,9 +34,7 @@ if [ "$DISABLE_MODULES" != "none" ]; then
 fi
 
 if [ "$DNF_COMMANDS" != "none" ]; then
-  for i in $(echo $DNF_COMMANDS | tr ',' ' '); do
-    eval "$i"
-  done
+  eval "$DNF_COMMANDS"
 fi
 
 
