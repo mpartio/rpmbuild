@@ -35,7 +35,7 @@ fi
 
 if [ "$DNF_COMMANDS" != "none" ]; then
   for i in $(echo $DNF_COMMANDS | tr ',' ' '); do
-    eval $i
+    eval "$i"
   done
 fi
 
