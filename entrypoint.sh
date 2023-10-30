@@ -44,7 +44,7 @@ ls -lah /github/workspace/ /github/home/rpmbuild/SOURCES/
 
 dnf builddep -y $SPEC_FILE
 
-commit_id=$(git rev-parse --short "$GITHUB_SHA")
+commit_id=$(echo "$GITHUB_SHA" | cut -c1-8) # short commit id
 
 export VERSION=$(date -u +%y).$(date -u +%m | sed 's/^0*//').$(date -u +%d | sed 's/^0*//')
 export RELEASE=$(date -u +%H%M).$commit_id
