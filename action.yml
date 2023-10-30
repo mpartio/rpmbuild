@@ -7,13 +7,13 @@ inputs:
     description: 'path to the spec file'
     required: true
     default: '*.spec'                     #Any spec file in top 
-  additional_repos:
+  additional_repositories:
     description: 'A list of additional repositories to install'
     required: false
     default: none
-  enable_repos:
+  enable_repositories:
     description: 'A list of additional repositories to enable'
-    requires: false
+    required: false
     default: none
   enable_modules:
     description: 'A list of dnf modules to enable'
@@ -21,7 +21,11 @@ inputs:
     default: none
   disable_modules:
     description: 'A list of dnf modules to disable'
-    requires: false
+    required: false
+    default: none
+  dnf_commands:
+    description: 'Additional dnf commands to run'
+    required: false
     default: none
 outputs:
   srpm_dir_path:
@@ -36,7 +40,7 @@ runs:
   steps:
     - run: echo Building spec ${{ inputs.spec_file }}
       shell: bash
-    - run: sh ${GITHUB_ACTION_PATH}/entrypoint.sh ${{ inputs.spec_file }}  ${{ inputs.additional_repos }} ${{ inputs.enable_repos }} ${{ inputs.enable_modules }} ${{ inputs.disable_modules }}
+    - run: sh ${GITHUB_ACTION_PATH}/entrypoint.sh ${{ inputs.spec_file }}  ${{ inputs.additional_repos }} ${{ inputs.enable_repos }} ${{ inputs.enable_modules }} ${{ inputs.disable_modules }} ${{ inputs.dnf_commands }}
       shell: bash
       id: build_rpm
 
