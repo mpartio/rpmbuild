@@ -1,0 +1,45 @@
+name: 'RPM Build'
+description: 'Build RPMs from spec file'
+author: 'Mikko Partio'
+
+inputs: 
+  spec_file:
+    description: 'path to the spec file'
+    required: true
+    default: '*.spec'                     #Any spec file in top 
+  additional_repos:
+    description: 'A list of additional repositories to install'
+    required: false
+    default: none
+  enable_repos:
+    description: 'A list of additional repositories to enable'
+    requires: false
+    default: none
+  enable_modules:
+    description: 'A list of dnf modules to enable'
+    required: false
+    default: none
+  disable_modules:
+    description: 'A list of dnf modules to disable'
+    requires: false
+    default: none
+outputs:
+  srpm_dir_path:
+    description: 'path to SRPMS directory'
+    value: ${{ steps.build_rpm.outputs.srpm_dir_path }}
+  rpm_dir_path:
+    description: 'path to RPMS directory'
+    value: ${{ steps.build_rpm.outputs.rpm_dir_path }}
+
+runs:
+  using: 'composite'
+  steps:
+    - run: echo Building spec ${{ inputs.spec_file }}
+      shell: bash
+    - run: sh ${GITHUB_ACTION_PATH}/entrypoint.sh ${{ inputs.spec_file }}  ${{ inputs.additional_repos }} ${{ inputs.enable_repos }} ${{ inputs.enable_modules }} ${{ inputs.disable_modules }}
+      shell: bash
+      id: build_rpm
+
+branding:
+  icon: 'package'
+  color: 'red'
