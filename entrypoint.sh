@@ -49,7 +49,7 @@ commit_id=$(echo "$GITHUB_SHA" | cut -c1-8) # short commit id
 export VERSION=$(date -u +%y).$(date -u +%m | sed 's/^0*//').$(date -u +%d | sed 's/^0*//')
 export RELEASE=$(date -u +%H%M).$commit_id
 
-rpmbuild --define="version $(VERSION)" --define="release $(RELEASE)" -ba $SPEC_FILE
+rpmbuild --define="version $VERSION" --define="release $RELEASE" -ba $SPEC_FILE
 
 mkdir -p /github/workspace/rpmbuild/SRPMS  /github/workspace/rpmbuild/RPMS
 find /github/home/rpmbuild/SRPMS/ -type f -name "*.src.rpm" -exec cp {} /github/workspace/rpmbuild/SRPMS \;
