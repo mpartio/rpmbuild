@@ -43,7 +43,13 @@ ln -sf /github/home/rpmbuild/SOURCES/${name}-${version}.tar.gz /github/home/rpmb
 ls -lah /github/workspace/ /github/home/rpmbuild/SOURCES/
 
 dnf builddep -y $SPEC_FILE
-rpmbuild -ba $SPEC_FILE
+
+commit_id=$(git rev-parse --short HEAD)
+
+export VERSION=$(date -u +%y).$(date -u +%m | sed 's/^0*//').$(date -u +%d | sed 's/^0*//')
+export RELEASE=$(date -u +%H%M).$commit_id
+
+rpmbuild --define="version $(VERSION)" --define="release $(RELEASE)" -ba $SPEC_FILE
 
 mkdir -p /github/workspace/rpmbuild/SRPMS  /github/workspace/rpmbuild/RPMS
 find /github/home/rpmbuild/SRPMS/ -type f -name "*.src.rpm" -exec cp {} /github/workspace/rpmbuild/SRPMS \;
